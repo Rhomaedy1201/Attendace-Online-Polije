@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          color: Colors.purpleAccent,
+          color: Colors.white,
         ),
       ),
       initialRoute: AppRoutes.splash,
