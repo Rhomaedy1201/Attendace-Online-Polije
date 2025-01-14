@@ -1,5 +1,5 @@
+import 'package:attendace_online_polije/core/widgets/my_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -8,9 +8,17 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("SPLASH SCREEN",
-          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.blue),
-        ),
+        child: SizedBox(
+          width: 220,
+          child: Image.asset('assets/icons/icon_polije.png')),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom:  25.0),
+        child: MyText(
+            title: "Copyright @ 2025 Attendace Online\nPoliteknik Negeri Jember",
+            fontSize: 14,
+            textAlign: TextAlign.center,
+          )
       ),
     );
   }
