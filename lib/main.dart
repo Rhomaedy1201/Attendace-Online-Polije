@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -105,8 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'You have pushed the button this many times:',
+              style: GoogleFonts.poppins(textStyle: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ))
             ),
             Text(
               '$_counter',
