@@ -1,3 +1,4 @@
+import 'package:attendace_online_polije/features/auth/screens/index.dart';
 import 'package:attendace_online_polije/features/splash/cubit/check_auth_splash_cubit.dart';
 import 'package:attendace_online_polije/features/splash/screens/index.dart';
 
@@ -6,7 +7,7 @@ import './export/index.dart';
 class AppRoutes {
   // Route Name
   static const String splash = '/';
-  // static const String login = '/login';
+  static const String login = '/login';
   // static const String home = '/home';
 
   // Rute yang disediakan
@@ -19,8 +20,8 @@ class AppRoutes {
             child: SplashScreen(),
           ),
         );
-      // case login:
-      //   return MaterialPageRoute(builder: (_) => LoginScreen());
+      case login:
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       // case home:
       //   return MaterialPageRoute(builder: (_) => MultiBlocProvider(
       //       providers: [

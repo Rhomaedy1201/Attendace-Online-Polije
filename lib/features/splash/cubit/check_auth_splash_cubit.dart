@@ -9,7 +9,7 @@ class CheckAuthSplashCubit extends Cubit<CheckAuthSplashState> {
   Future<void> checkAuthSplashentication() async {
     await Future.delayed(Duration(seconds: 3));
     
-    var isLoggedIn = true;
+    var isLoggedIn = false;
     if (isLoggedIn) {
       emit(AuthAuthenticated());
     } else {
