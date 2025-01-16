@@ -1,3 +1,4 @@
+import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:attendace_online_polije/core/widgets/my_text.dart';
 import 'package:attendace_online_polije/features/splash/cubit/check_auth_splash_cubit.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<CheckAuthSplashCubit, CheckAuthSplashState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          Navigator.pushReplacementNamed(context, '/home');
+          Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
         }else if(state is AuthUnauthenticated){
           Navigator.pushReplacementNamed(context, '/login');
         }

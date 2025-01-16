@@ -1,4 +1,5 @@
 import 'package:attendace_online_polije/core/config/app_router.dart';
+import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme: AppBarTheme(
-          color: Colors.white,
+          color: ColorConstants.primaryC,
         ),
       ),
       initialRoute: AppRoutes.splash,

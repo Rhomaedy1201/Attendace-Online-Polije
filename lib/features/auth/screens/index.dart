@@ -1,3 +1,4 @@
+import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:attendace_online_polije/core/widgets/button.dart';
 import 'package:attendace_online_polije/core/widgets/gap.dart';
@@ -91,7 +92,9 @@ class LoginScreen extends StatelessWidget {
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
+                        },
                       ),
                     ),
                   ],
