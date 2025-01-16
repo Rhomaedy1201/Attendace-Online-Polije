@@ -1,8 +1,4 @@
-import 'package:attendace_online_polije/core/config/app_router.dart';
-import 'package:attendace_online_polije/core/widgets/my_text.dart';
-import 'package:attendace_online_polije/features/splash/cubit/check_auth_splash_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '../export/index.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
