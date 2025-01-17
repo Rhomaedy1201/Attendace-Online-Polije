@@ -19,4 +19,5 @@ class ColorConstants {
   static const Color textC = Color(0xFF4F4B4C);
   static const Color whiteC = Color(0xFFFFFFFF);
   static const Color blackC = Color(0xFF000000);
+  static const Color shadowC = Color(0xFFDADADA);
 }
