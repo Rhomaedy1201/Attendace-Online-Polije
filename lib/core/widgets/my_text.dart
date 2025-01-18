@@ -15,6 +15,7 @@ class MyText extends StatelessWidget {
   final IconData? icon;
   final double? sizeIcon;
   final Color? colorIcon;
+  final double? gapIcon;
 
   const MyText({
     super.key,
@@ -29,6 +30,7 @@ class MyText extends StatelessWidget {
     this.icon,
     this.sizeIcon,
     this.colorIcon,
+    this.gapIcon,
   });
 
   @override
@@ -41,11 +43,11 @@ class MyText extends StatelessWidget {
         maxLines: maxLine ?? 1,
         overflow: textOverflow ?? TextOverflow.ellipsis,
       );
-    }else if(addIcon != null){
+    }else if(addIcon == true){
       return Row(
         children: [
           Icon(icon ?? Icons.abc, size: sizeIcon ?? 30, color: colorIcon ?? ColorConstants.textC),
-          Gap(X: 5),
+          Gap(X: gapIcon ?? 5),
           Text(
             title,
             style: GoogleFonts.poppins(fontSize: fontSize ?? 12, fontWeight: fontWeight ?? FontWeight.w500, color: color ?? ColorConstants.textC),

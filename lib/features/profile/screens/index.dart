@@ -1,8 +1,6 @@
-import 'package:attendace_online_polije/core/constants/color_constants.dart';
-import 'package:attendace_online_polije/core/utils/media_helper.dart';
-import 'package:attendace_online_polije/core/widgets/gap.dart';
-import 'package:attendace_online_polije/core/widgets/my_text.dart';
-import 'package:flutter/material.dart';
+import 'package:attendace_online_polije/features/profile/widgets/items.dart';
+
+import '../export/index.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -61,11 +59,41 @@ class ProfileScreen extends StatelessWidget {
                 ]
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyText(title: "title"),
+                    Items(
+                      icon: FluentIcons.person_32_filled,
+                      title: "Informasi Mahasiswa",
+                      onClick: (){
+                        print("Informasi mhs");
+                      },
+                      addArrowRight: true,
+                    ),
+                    Gap(Y: 20),
+                    Items(
+                      icon: FluentIcons.lock_closed_16_filled,
+                      title: "Ubah Password",
+                      onClick: (){},
+                      addArrowRight: true,
+                    ),
+                    Gap(Y: 20),
+                    Items(
+                      icon: FluentIcons.settings_16_filled,
+                      title: "Settings",
+                      onClick: (){},
+                      addArrowRight: true,
+                    ),
+                    Gap(Y: 20),
+                    Items(
+                      icon: FluentIcons.sign_out_24_filled,
+                      title: "Logout",
+                      colorText: ColorConstants.redDarkC,
+                      colorIcon: ColorConstants.redDarkC,
+                      onClick: (){},
+                      addArrowRight: true,
+                    ),
                   ],
                 ),
               ),
