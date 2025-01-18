@@ -1,5 +1,3 @@
-import 'package:attendace_online_polije/features/profile/widgets/items.dart';
-
 import '../export/index.dart';
 
 class ProfileScreen extends StatelessWidget {
