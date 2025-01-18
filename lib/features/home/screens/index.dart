@@ -1,4 +1,5 @@
 import 'package:attendace_online_polije/features/home/widgets/attendance_card.dart';
+import 'package:attendace_online_polije/features/home/widgets/item_schedule.dart';
 
 import '../export/index.dart';
 
@@ -12,26 +13,37 @@ class HomeScreen extends StatelessWidget {
     final double screenHeight = MediaHelper.getScreenHeight(context);
     return Scaffold(
       backgroundColor: ColorConstants.backgroundC,
-      // appBar: AppBar(
-      //   title: const Text('Home Screen'),
-      // ),
       body: Stack(
         children: [
-          ClipPath(
-            child: SizedBox(
-              width: screenWidth,
-              child: Container(
-                width: screenWidth,
-                height: screenHeight * 0.3,
-                color: ColorConstants.primaryC,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: statusBarHeight + 20, horizontal: 20),
-                  child: Header(),
-                ),
+          Header(screenHeight: screenHeight, screenWidth: screenWidth, statusBarHeight: statusBarHeight),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AttendanceCard(screenHeight: screenHeight, screenWidth: screenWidth),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: MyText(title: "Jadwal Hari Ini", fontSize: 15, fontWeight: FontWeight.w700),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        MyText(title: "Waktu", fontSize: 12, fontWeight: FontWeight.w600),
+                        Gap(X: 38),
+                        MyText(title: "Kelas", fontSize: 12, fontWeight: FontWeight.w600),
+                      ],
+                    ),
+                    ItemSchedule(),
+                    ItemSchedule(),
+                    ItemSchedule(),
+                    ItemSchedule(),
+                  ],
+                ),
+              )
+            ],
           ),
-          AttendanceCard(screenHeight: screenHeight, screenWidth: screenWidth)
         ],
       )
     );

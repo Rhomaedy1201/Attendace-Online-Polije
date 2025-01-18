@@ -7,6 +7,7 @@ class ColorConstants {
   
   static const Color grayC_200 = Color(0xFFF7F7F7);
   static const Color grayC_400 = Color(0xFFECECEC);
+  static const Color grayC_500 = Color(0xFFDADADA);
   static const Color grayC_600 = Color(0xFFA29FA0);
 
   static const Color redDarkC = Color(0xFFEB3223);
