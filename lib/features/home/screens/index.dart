@@ -1,6 +1,6 @@
-import 'package:attendace_online_polije/core/constants/color_constants.dart';
-import 'package:attendace_online_polije/core/utils/media_helper.dart';
-import 'package:flutter/material.dart';
+import 'package:attendace_online_polije/features/home/widgets/attendance_card.dart';
+
+import '../export/index.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,37 +20,18 @@ class HomeScreen extends StatelessWidget {
           ClipPath(
             child: SizedBox(
               width: screenWidth,
-              // color: ColorConstants.grayC_600,
-              child: Column(
-                children: [
-                  Container(
-                    width: screenWidth,
-                    height: screenHeight * 0.35,
-                    color: ColorConstants.primaryC,
-                  ),
-                ],
+              child: Container(
+                width: screenWidth,
+                height: screenHeight * 0.3,
+                color: ColorConstants.primaryC,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: statusBarHeight + 20, horizontal: 20),
+                  child: Header(),
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              margin: EdgeInsets.only(top: screenHeight * 0.25),
-              width: screenWidth,
-              height: 195,
-              decoration: BoxDecoration(
-                color: ColorConstants.whiteC,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: ColorConstants.shadowC,
-                    blurRadius: 5,
-                    offset: Offset(0, 0)
-                  )
-                ]
-              ),
-            ),
-          ),
+          AttendanceCard(screenHeight: screenHeight, screenWidth: screenWidth)
         ],
       )
     );

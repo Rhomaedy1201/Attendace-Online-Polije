@@ -15,6 +15,9 @@ class ColorConstants {
   static const Color greenDarkC = Color(0xFF40EB0B);
   static const Color greenLightC = Color(0xFFAFF898);
 
+  static const Color emberDarkC = Color(0xFFFBD840);
+  static const Color emberLightC = Color(0xFFFDEEAD);
+
   static const Color backgroundC = Color(0xFFF8F7F7);
   static const Color textC = Color(0xFF4F4B4C);
   static const Color whiteC = Color(0xFFFFFFFF);
