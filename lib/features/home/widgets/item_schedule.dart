@@ -9,7 +9,7 @@ class ItemSchedule extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

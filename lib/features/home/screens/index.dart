@@ -24,22 +24,25 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 child: MyText(title: "Jadwal Hari Ini", fontSize: 15, fontWeight: FontWeight.w700),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Row(
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
                       children: [
-                        MyText(title: "Waktu", fontSize: 12, fontWeight: FontWeight.w600),
-                        Gap(X: 38),
-                        MyText(title: "Kelas", fontSize: 12, fontWeight: FontWeight.w600),
+                        Row(
+                          children: [
+                            MyText(title: "Waktu", fontSize: 12, fontWeight: FontWeight.w600),
+                            Gap(X: 38),
+                            MyText(title: "Kelas", fontSize: 12, fontWeight: FontWeight.w600),
+                          ],
+                        ),
+                        ItemSchedule(),
+                        ItemSchedule(),
+                        ItemSchedule(),
                       ],
                     ),
-                    ItemSchedule(),
-                    ItemSchedule(),
-                    ItemSchedule(),
-                    ItemSchedule(),
-                  ],
+                  ),
                 ),
               )
             ],
