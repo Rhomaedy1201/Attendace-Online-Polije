@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
     final double statusBarHeight = MediaHelper.getStatusBarHeight(context);
     final double screenWidth = MediaHelper.getScreenWidth(context);
     final double screenHeight = MediaHelper.getScreenHeight(context);
+    final bool emptyJadwal = false; 
     return Scaffold(
       backgroundColor: ColorConstants.backgroundC,
       body: Stack(
@@ -30,16 +31,33 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: [
-                        Row(
+                        if(emptyJadwal)
+                        Center(
+                          child: Column(
+                            children: [
+                              Gap(Y: 20),
+                              SizedBox(
+                                width: screenWidth * 0.45,
+                                child: Image.asset('assets/images/empty_data.png')),
+                              MyText(title: "Tidak ada jadwal kuliah\nhari ini.", fontSize: 15, textAlign: TextAlign.center, fontWeight: FontWeight.w600)
+                            ],
+                          ),
+                        )
+                        else
+                        Column(
                           children: [
-                            MyText(title: "Waktu", fontSize: 12, fontWeight: FontWeight.w600),
-                            Gap(X: 38),
-                            MyText(title: "Kelas", fontSize: 12, fontWeight: FontWeight.w600),
+                            Row(
+                              children: [
+                                MyText(title: "Waktu", fontSize: 12, fontWeight: FontWeight.w600),
+                                Gap(X: 38),
+                                MyText(title: "Kelas", fontSize: 12, fontWeight: FontWeight.w600),
+                              ],
+                            ),
+                            ItemSchedule(),
+                            ItemSchedule(),
+                            ItemSchedule(),
                           ],
                         ),
-                        ItemSchedule(),
-                        ItemSchedule(),
-                        ItemSchedule(),
                       ],
                     ),
                   ),
