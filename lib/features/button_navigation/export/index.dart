@@ -6,3 +6,5 @@ export 'package:fluentui_system_icons/fluentui_system_icons.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:google_fonts/google_fonts.dart';
+export 'package:attendace_online_polije/features/history/screens/index.dart';
+export 'package:attendace_online_polije/features/profile/screens/index.dart';

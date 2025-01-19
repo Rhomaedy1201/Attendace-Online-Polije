@@ -1,5 +1,3 @@
-import 'package:attendace_online_polije/features/profile/screens/index.dart';
-
 import '../export/index.dart';
 
 const List<Widget> listBody = [
@@ -7,9 +5,7 @@ const List<Widget> listBody = [
   Center(
     child: MyText(title: "Jadwal", fontSize: 30, fontWeight: FontWeight.bold,),
   ),
-  Center(
-    child: MyText(title: "History", fontSize: 30, fontWeight: FontWeight.bold,),
-  ),
+  HistoryScreen(),
   ProfileScreen(),
 ];
 
