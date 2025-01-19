@@ -1,10 +1,10 @@
+import 'package:attendace_online_polije/features/jadwal/screens/index.dart';
+
 import '../export/index.dart';
 
 const List<Widget> listBody = [
   HomeScreen(),
-  Center(
-    child: MyText(title: "Jadwal", fontSize: 30, fontWeight: FontWeight.bold,),
-  ),
+  JadwalScreen(),
   HistoryScreen(),
   ProfileScreen(),
 ];
