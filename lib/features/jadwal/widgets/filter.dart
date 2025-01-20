@@ -1,5 +1,15 @@
 // ignore_for_file: must_be_immutable
+import 'package:attendace_online_polije/features/jadwal/cubit/visibility_dropdown_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../export/index.dart';
+
+const List<String> dropdownData = [
+  "2024 / 2025 Ganjil",
+  "2024 / 2025 Genap",
+  "2025 / 2026 Ganjil",
+  "2025 / 2026 Genap",
+];
 
 class Filter extends StatelessWidget {
   double screenWidth, screenHeight;
@@ -7,20 +17,19 @@ class Filter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    VisibilityDropdownCubit data = context.read<VisibilityDropdownCubit>();
     return Container(
       width: screenWidth,
       height: screenHeight * 0.09,
       decoration: BoxDecoration(
-        color: ColorConstants.whiteC,
-        borderRadius: BorderRadius.circular(7),
-        boxShadow: [
-          BoxShadow(
-            color: ColorConstants.shadowC,
-            blurRadius: 5,
-            offset: Offset(0, 1)  
-          )
-        ]
-      ),
+          color: ColorConstants.whiteC,
+          borderRadius: BorderRadius.circular(7),
+          boxShadow: [
+            BoxShadow(
+                color: ColorConstants.shadowC,
+                blurRadius: 5,
+                offset: Offset(0, 1))
+          ]),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -28,31 +37,48 @@ class Filter extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Gap(Y: 5),
-            MyText(title: "Tahun Ajaran", fontSize: 12, fontWeight: FontWeight.w700),
+            MyText(
+                title: "Tahun Ajaran",
+                fontSize: 12,
+                fontWeight: FontWeight.w700),
             Gap(Y: 4),
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                },
-                child: Container(
-                  width: screenWidth,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 1.5, color: ColorConstants.grayC_500),
-                    borderRadius: BorderRadius.circular(4)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 7),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MyText(title: "Januari 2025", fontSize: 12, fontWeight: FontWeight.w700),
-                        Icon(FluentIcons.calendar_20_filled, size: 24)
-                      ],
+            BlocBuilder<VisibilityDropdownCubit, String>(
+              builder: (context, state) {
+                return SizedBox(
+                  height: 40,
+                  child: Container(
+                    width: screenWidth,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.5, color: ColorConstants.grayC_500),
+                        borderRadius: BorderRadius.circular(4)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: DropdownButton<String>(
+                        value: data.state,
+                        icon: const Icon(Icons.keyboard_arrow_down_sharp, size: 30, color: ColorConstants.grayC_600),
+                        isExpanded: true,
+                        elevation: 16,
+                        style: const TextStyle(color: ColorConstants.textC, fontWeight: FontWeight.w600, fontSize: 13),
+                        underline: Container(
+                          height: 2,
+                          color: Colors.transparent,
+                        ),
+                        onChanged: (value) {
+                          data.toggleVisibility(value);
+                        },
+                        items: dropdownData
+                            .map<DropdownMenuItem<String>>((String? value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value!),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             )
           ],
         ),

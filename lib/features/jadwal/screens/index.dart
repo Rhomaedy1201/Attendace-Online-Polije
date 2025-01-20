@@ -1,5 +1,4 @@
 import '../export/index.dart';
-
 class JadwalScreen extends StatelessWidget {
   const JadwalScreen({super.key});
 

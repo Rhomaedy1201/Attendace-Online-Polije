@@ -1,3 +1,5 @@
+import 'package:attendace_online_polije/features/jadwal/cubit/visibility_dropdown_cubit.dart';
+
 import './export/index.dart';
 
 class AppRoutes {
@@ -21,8 +23,11 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => LoginScreen());
       case myNavigationBar:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-              create: (context) => NavigatorCubit(),
+          builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => NavigatorCubit()),
+                BlocProvider(create: (context) => VisibilityDropdownCubit()),
+              ], 
               child: MyNavigationBar(),
             )
           );
