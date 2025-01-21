@@ -25,6 +25,7 @@ class JadwalScreen extends StatelessWidget {
               children: [
                 Filter(screenWidth: screenWidth, screenHeight: screenHeight),
                 Gap(Y: 5),
+                MyText(title: "title")
               ]
             )
           )

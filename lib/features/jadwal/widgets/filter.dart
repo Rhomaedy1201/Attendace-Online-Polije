@@ -1,14 +1,23 @@
 // ignore_for_file: must_be_immutable
-import 'package:attendace_online_polije/features/jadwal/cubit/visibility_dropdown_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../export/index.dart';
 
-const List<String> dropdownData = [
-  "2024 / 2025 Ganjil",
-  "2024 / 2025 Genap",
-  "2025 / 2026 Ganjil",
-  "2025 / 2026 Genap",
+const List<Map> dropdownData = [
+  {
+    'id': 1,
+    'name': "2024 / 2025 Ganjil",
+  },
+  {
+    'id': 2,
+    'name': "2024 / 2025 Genap",
+  },
+  {
+    'id': 3,
+    'name': "2025 / 2026 Ganjil",
+  },
+  {
+    'id': 4,
+    'name': "2025 / 2026 Genap",
+  },
 ];
 
 class Filter extends StatelessWidget {
@@ -54,8 +63,9 @@ class Filter extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: DropdownButton<String>(
-                        value: data.state,
+                      child: DropdownButton<int>(
+                        value: int.parse(state),
+                        hint: MyText(title: "-- silahkan pilih --"),
                         icon: const Icon(Icons.keyboard_arrow_down_sharp, size: 30, color: ColorConstants.grayC_600),
                         isExpanded: true,
                         elevation: 16,
@@ -65,13 +75,12 @@ class Filter extends StatelessWidget {
                           color: Colors.transparent,
                         ),
                         onChanged: (value) {
-                          data.toggleVisibility(value);
+                          data.toggleVisibility(value.toString());
                         },
-                        items: dropdownData
-                            .map<DropdownMenuItem<String>>((String? value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value!),
+                        items: dropdownData.map<DropdownMenuItem<int>>((value) {
+                          return DropdownMenuItem<int>(
+                            value: value['id'],
+                            child: Text(value['name']),
                           );
                         }).toList(),
                       ),
