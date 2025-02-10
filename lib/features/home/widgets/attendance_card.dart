@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:attendace_online_polije/core/config/app_router.dart';
+
 import '../export/index.dart';
 
 class AttendanceCard extends StatelessWidget {
@@ -66,6 +68,7 @@ class AttendanceCard extends StatelessWidget {
                   isBtnIcon: true, title: "Presensi",  textColor: ColorConstants.whiteC, fontWeight: FontWeight.w700,
                   icon: Icons.center_focus_weak_outlined,
                   onPressed: () {
+                    Navigator.pushNamed(context, AppRoutes.attendance);
                   },
                 ),
               )

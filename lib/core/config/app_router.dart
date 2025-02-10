@@ -1,3 +1,4 @@
+import 'package:attendace_online_polije/features/attendance/screens/index.dart';
 import 'package:attendace_online_polije/features/jadwal/cubit/visibility_dropdown_cubit.dart';
 
 import './export/index.dart';
@@ -8,6 +9,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String myNavigationBar = '/my_navigation_bar';
   static const String home = '/home';
+  static const String attendance = '/attendance';
 
   // Rute yang disediakan
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -33,6 +35,8 @@ class AppRoutes {
           );
       case home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
+      case attendance:
+        return MaterialPageRoute(builder: (_) => AttendanceScreen());
       // return MaterialPageRoute(builder: (_) => MultiBlocProvider(
       //     providers: [
       //       BlocProvider(create: (context) => ProductCubit(ProductRepository())..getProduct()),
