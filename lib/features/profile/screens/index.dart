@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                       icon: FluentIcons.person_32_filled,
                       title: "Informasi Mahasiswa",
                       onClick: (){
-                        print("Informasi mhs");
+                        debugPrint("Informasi mhs");
                       },
                       addArrowRight: true,
                     ),

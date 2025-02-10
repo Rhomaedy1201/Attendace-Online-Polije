@@ -6,6 +6,5 @@ class VisibilityDropdownCubit extends Cubit<String> {
 
   void toggleVisibility(String value) {
     emit(value);
-    print(value);
   }
 }
