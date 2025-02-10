@@ -1,5 +1,5 @@
-import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:attendace_online_polije/core/constants/color_constants.dart';
+import 'package:attendace_online_polije/core/utils/my_snacbar.dart';
 import 'package:attendace_online_polije/core/widgets/button.dart';
 import 'package:attendace_online_polije/core/widgets/gap.dart';
 import 'package:attendace_online_polije/core/widgets/my_text.dart';
@@ -10,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final TextEditingController nimC = TextEditingController();
+  final TextEditingController passwordC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +21,6 @@ class LoginScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: ColorConstants.primaryC,
-      // appBar: AppBar(
-      //   title: const Text('Login'),
-      // ),
       body: Stack(
         children: [
           Positioned(
@@ -93,7 +93,16 @@ class LoginScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
+                          // Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
+                          // const snackdemo = SnackBar(
+                          //   content: Text('Hii this is GFG\'s SnackBar'),
+                          //   backgroundColor: Colors.green,
+                          //   elevation: 10,
+                          //   behavior: SnackBarBehavior.floating,
+                          //   margin: EdgeInsets.all(5),
+                          // );
+                          // ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                          MySnacbar.snackbarError("Login Error", context);
                         },
                       ),
                     ),
