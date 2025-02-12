@@ -1,3 +1,4 @@
+import 'package:attendace_online_polije/core/constants/api_constants.dart';
 import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:attendace_online_polije/core/utils/my_snacbar.dart';
 import 'package:attendace_online_polije/core/widgets/button.dart';
@@ -87,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                           MySnacbar.snackbarSuccess("Berhasil Login", context);
                           Navigator.pushReplacementNamed(context, AppRoutes.home);
                         } else if(state is AuthError) {
-                          MySnacbar.snackbarError("Error ${state.msgErr}", context);
+                          MySnacbar.snackbarError(state.msgErr, context);
                         }
                       },
                       child: SizedBox(

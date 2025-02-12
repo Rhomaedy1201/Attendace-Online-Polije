@@ -10,8 +10,12 @@ class AuthCubit extends Cubit<AuthState> {
   void login({required String nim, required String pass}) async{
     emit(AuthLoading());
     try {
-      final response = await authRepository.login(nim, pass);
-      emit(AuthSuccess(msg: response['message']));
+      if (nim.isNotEmpty && pass.isNotEmpty) {
+        final response = await authRepository.login(nim, pass);
+        emit(AuthSuccess(msg: response['message']));
+      } else {
+        emit(AuthError(msgErr: "Nip Atau Password wajib di isi"));
+      }
     } catch (e) {
       emit(AuthError(msgErr: "error occurred: $e"));
     }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:attendace_online_polije/core/constants/api_constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
 
@@ -9,7 +10,7 @@ class AuthRepository {
     try {
       final body = {'nim': nim,'password': pass};
       final response = await http.post(
-        Uri.parse("http://192.168.137.215:8000/api/login-mahasiswa"),
+        Uri.parse(ApiConstants.loginEndpoint),
         body: jsonEncode(body),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
@@ -18,7 +19,9 @@ class AuthRepository {
 
       final jsonData = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        print(jsonData);
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('nim', jsonData['data']['user']['nim']);
+        await prefs.setString('token', jsonData['data']['token']);
         return Map<dynamic, dynamic>.from(jsonData);
       } else {
         throw Exception('Error ${jsonData['message']} ${response.statusCode}');
