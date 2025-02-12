@@ -5,6 +5,7 @@ import 'package:attendace_online_polije/features/auth/cubit/password_visibility_
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting('id_ID', null).then((_) {
     runApp(
       MultiBlocProvider(

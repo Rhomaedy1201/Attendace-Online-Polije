@@ -2,6 +2,7 @@ import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:attendace_online_polije/core/utils/my_snacbar.dart';
 import 'package:attendace_online_polije/core/widgets/button.dart';
 import 'package:attendace_online_polije/core/widgets/gap.dart';
+import 'package:attendace_online_polije/features/auth/cubit/auth_cubit.dart';
 import 'package:attendace_online_polije/features/auth/cubit/password_visibility_cubit.dart';
 import 'package:attendace_online_polije/features/auth/widgets/input_email.dart';
 import 'package:attendace_online_polije/features/auth/widgets/input_pass.dart';
@@ -80,20 +81,30 @@ class LoginScreen extends StatelessWidget {
                       child: InputPass(passwordC: passwordC),
                     ),
                     Gap(Y: 30),
-                    SizedBox(
-                      width: screenWidth,
-                      height: 50,
-                      child: CustomButton(
-                        isBtnIcon: true,
-                        title: "Log In",
-                        icon: Icons.login_outlined,
-                        bgColor: ColorConstants.primaryC,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        textColor: Colors.white,
-                        onPressed: (){
-                          MySnacbar.snackbarError("Harap isi semua form", context);
+                    BlocListener<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthSuccess) {
+                          MySnacbar.snackbarSuccess("Berhasil Login", context);
+                          Navigator.pushReplacementNamed(context, AppRoutes.home);
+                        } else if(state is AuthError) {
+                          MySnacbar.snackbarError("Error ${state.msgErr}", context);
                         }
+                      },
+                      child: SizedBox(
+                        width: screenWidth,
+                        height: 50,
+                        child: CustomButton(
+                            isBtnIcon: true,
+                            title: "Log In",
+                            icon: Icons.login_outlined,
+                            bgColor: ColorConstants.primaryC,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            textColor: Colors.white,
+                            onPressed: State is AuthLoading ? null : () {
+                              // MySnacbar.snackbarError("Harap isi semua form", context);
+                              context.read<AuthCubit>().login(nim: nimC.text, pass: passwordC.text);
+                            }),
                       ),
                     )
                   ],

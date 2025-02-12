@@ -1,4 +1,6 @@
 import 'package:attendace_online_polije/features/attendance/screens/index.dart';
+import 'package:attendace_online_polije/features/auth/cubit/auth_cubit.dart';
+import 'package:attendace_online_polije/features/auth/repository/auth_repository.dart';
 import './export/index.dart';
 
 class AppRoutes {
@@ -13,7 +15,7 @@ class AppRoutes {
       case splash:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case login:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(builder: (_) => BlocProvider(create: (context) => AuthCubit(AuthRepository()), child: LoginScreen()));
       case myNavigationBar:
         return MaterialPageRoute(builder: (_) => MyNavigationBar());
       case home:
