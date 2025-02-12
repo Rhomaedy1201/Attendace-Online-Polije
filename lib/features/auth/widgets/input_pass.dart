@@ -1,10 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:attendace_online_polije/features/auth/cubit/password_visibility_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputPass extends StatelessWidget {
-  const InputPass({super.key});
+  TextEditingController passwordC;
+  InputPass({super.key, required this.passwordC});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class InputPass extends StatelessWidget {
             autocorrect: false,
             maxLines: 1,
             obscureText: isPasswordVisible,
-            controller: null,
+            controller: passwordC,
             enableSuggestions: false,
             decoration: InputDecoration(
               hintText: "Masukkan Password",

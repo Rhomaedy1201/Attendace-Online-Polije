@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
   final Color? bgColor;
   final Color? textColor;
   final FontWeight? fontWeight; 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final IconData? icon;
   final double? iconSize;
   final Color? colorIcon;

@@ -1,8 +1,11 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
-class InputEmail extends StatelessWidget {
-  const InputEmail({super.key});
+class InputNim extends StatelessWidget {
+  TextEditingController nimC;
+  InputNim({super.key, required this.nimC});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class InputEmail extends StatelessWidget {
       child: TextField(
         autocorrect: false,
         maxLines: 1,
-        controller: null,
+        controller: nimC,
         decoration: const InputDecoration(
           hintText: "Masukkan NIM",
           hintStyle: TextStyle(color: ColorConstants.grayC_600),

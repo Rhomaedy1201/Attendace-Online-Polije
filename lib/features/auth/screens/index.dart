@@ -2,12 +2,10 @@ import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:attendace_online_polije/core/utils/my_snacbar.dart';
 import 'package:attendace_online_polije/core/widgets/button.dart';
 import 'package:attendace_online_polije/core/widgets/gap.dart';
-import 'package:attendace_online_polije/core/widgets/my_text.dart';
 import 'package:attendace_online_polije/features/auth/cubit/password_visibility_cubit.dart';
 import 'package:attendace_online_polije/features/auth/widgets/input_email.dart';
 import 'package:attendace_online_polije/features/auth/widgets/input_pass.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:attendace_online_polije/features/splash/export/index.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -75,37 +73,29 @@ class LoginScreen extends StatelessWidget {
                         fontSize: 32,
                         fontWeight: FontWeight.w700),
                     Gap(Y: 30),
-                    InputEmail(),
+                    InputNim(nimC: nimC),
                     Gap(Y: 20),
                     BlocProvider(
                       create: (context) => PasswordVisibilityCubit(),
-                      child: InputPass(),
+                      child: InputPass(passwordC: passwordC),
                     ),
                     Gap(Y: 30),
                     SizedBox(
                       width: screenWidth,
                       height: 50,
                       child: CustomButton(
-                        isBtnIcon: true, 
-                        title: "Log In", 
+                        isBtnIcon: true,
+                        title: "Log In",
+                        icon: Icons.login_outlined,
                         bgColor: ColorConstants.primaryC,
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                         textColor: Colors.white,
-                        onPressed: () {
-                          // Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
-                          // const snackdemo = SnackBar(
-                          //   content: Text('Hii this is GFG\'s SnackBar'),
-                          //   backgroundColor: Colors.green,
-                          //   elevation: 10,
-                          //   behavior: SnackBarBehavior.floating,
-                          //   margin: EdgeInsets.all(5),
-                          // );
-                          // ScaffoldMessenger.of(context).showSnackBar(snackdemo);
-                          MySnacbar.snackbarError("Login Error", context);
-                        },
+                        onPressed: (){
+                          MySnacbar.snackbarError("Harap isi semua form", context);
+                        }
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),

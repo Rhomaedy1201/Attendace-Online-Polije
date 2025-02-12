@@ -1,12 +1,20 @@
 import 'package:attendace_online_polije/core/config/app_router.dart';
+import 'package:attendace_online_polije/core/config/export/index.dart';
 import 'package:attendace_online_polije/core/constants/color_constants.dart';
-import 'package:flutter/material.dart';
+import 'package:attendace_online_polije/features/auth/cubit/password_visibility_cubit.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 Future<void> main() async {
-  await initializeDateFormatting('id_ID', null).then((_){
-    // DepedencyInjection.init();
-    runApp(const MyApp());
+  await initializeDateFormatting('id_ID', null).then((_) {
+    runApp(
+      MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => NavigatorCubit()),
+          BlocProvider(create: (context) => PasswordVisibilityCubit()),
+        ],
+        child: MyApp(),
+      ),
+    );
   });
 }
 
