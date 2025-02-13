@@ -8,30 +8,27 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CheckAuthSplashCubit()..checkAuthSplashentication(),
-      child: BlocListener<CheckAuthSplashCubit, CheckAuthSplashState>(
-        listener: (context, state) {
-          if (state is AuthAuthenticated) {
-            Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
-          } else if (state is AuthUnauthenticated) {
-            Navigator.pushReplacementNamed(context, AppRoutes.login);
-          }
-        },
-        child: Scaffold(
-          body: Center(
-            child: SizedBox(
-              width: 220,
-              child: Image.asset('assets/icons/icon_polije.png'),
-            ),
+    return BlocListener<CheckAuthSplashCubit, CheckAuthSplashState>(
+      listener: (context, state) {
+        if (state is AuthAuthenticated) {
+          Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
+        } else if (state is AuthUnauthenticated) {
+          Navigator.pushReplacementNamed(context, AppRoutes.login);
+        }
+      },
+      child: Scaffold(
+        body: Center(
+          child: SizedBox(
+            width: 220,
+            child: Image.asset('assets/icons/icon_polije.png'),
           ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.only(bottom: 25.0),
-            child: Text(
-              "Copyright @ 2025 Attendance Online\nPoliteknik Negeri Jember",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14),
-            ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 25.0),
+          child: Text(
+            "Copyright @ 2025 Attendance Online\nPoliteknik Negeri Jember",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
           ),
         ),
       ),

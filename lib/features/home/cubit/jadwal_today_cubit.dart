@@ -12,9 +12,9 @@ class JadwalTodayCubit extends Cubit<JadwalTodayState> {
     emit(JadwalTodayLoading());
     try {
       final data = await homeJadwalRepository.getJadwalToday();
-      emit(JadwalTodaySuccess(data));
+      emit(JadwalTodaySuccess(jadwal: data));
     } catch (e) {
-      emit(JadwalTodayError("Error $e"));
+      emit(JadwalTodayError(message: "Error $e"));
     }
   }
 }

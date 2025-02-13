@@ -7,10 +7,10 @@ final class JadwalTodayLoading extends JadwalTodayInitial {}
 
 final class JadwalTodaySuccess extends JadwalTodayInitial {
   final JadwalToday jadwal;
-  JadwalTodaySuccess(this.jadwal);
+  JadwalTodaySuccess({required this.jadwal});
 }
 
 final class JadwalTodayError extends JadwalTodayInitial {
   final String message;
-  JadwalTodayError(this.message);
+  JadwalTodayError({required this.message});
 }

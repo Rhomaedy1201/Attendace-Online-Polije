@@ -15,18 +15,20 @@ class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => BlocProvider(create: (context) => CheckAuthSplashCubit()..checkAuthSplashentication(), 
+          child: SplashScreen(),
+        ));
       case login:
         return MaterialPageRoute(builder: (_) => BlocProvider(create: (context) => AuthCubit(AuthRepository()), child: LoginScreen()));
       case myNavigationBar:
-        return MaterialPageRoute(builder: (_) => MyNavigationBar());
-      case home:
         return MaterialPageRoute(builder: (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => JadwalTodayCubit(HomeJadwalRepository())..getJadwalToday()),
           ], 
-          child: HomeScreen()
+          child: MyNavigationBar()
         ));
+      case home:
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       case attendance:
         return MaterialPageRoute(builder: (_) => AttendanceScreen());
       default:

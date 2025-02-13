@@ -13,14 +13,13 @@ class HomeJadwalRepository {
     final response = await http.get(
       Uri.parse(ApiConstants.jadwalTodayEndpoint),
       headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       }
     );
 
+    final jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
-      print(jsonData);
       return JadwalToday.fromJson(jsonData);
     } else {
       throw Exception('Failed to load jadwal today ${response.statusCode}');
