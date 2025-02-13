@@ -36,6 +36,7 @@ class ItemSchedule extends StatelessWidget {
                     ListView.builder(
                       itemCount: state.jadwal.data.length,
                       shrinkWrap: true,
+                      padding: EdgeInsets.all(0),
                       itemBuilder: (context, index) {
                         var data = state.jadwal.data;
                         return Row(

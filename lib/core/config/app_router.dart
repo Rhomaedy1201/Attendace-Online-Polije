@@ -3,6 +3,8 @@ import 'package:attendace_online_polije/features/auth/cubit/auth_cubit.dart';
 import 'package:attendace_online_polije/features/auth/repository/auth_repository.dart';
 import 'package:attendace_online_polije/features/home/cubit/jadwal_today_cubit.dart';
 import 'package:attendace_online_polije/features/home/repository/home_jadwal_repository.dart';
+import 'package:attendace_online_polije/features/profile/cubit/profile_cubit.dart';
+import 'package:attendace_online_polije/features/profile/repository/profile_repository.dart';
 import './export/index.dart';
 
 class AppRoutes {
@@ -24,6 +26,7 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => JadwalTodayCubit(HomeJadwalRepository())..getJadwalToday()),
+            BlocProvider(create: (context) => ProfileCubit(ProfileRepository())..getProfile()),
           ], 
           child: MyNavigationBar()
         ));

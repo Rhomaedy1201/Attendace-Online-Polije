@@ -1,6 +1,3 @@
-import 'package:attendace_online_polije/features/home/widgets/attendance_card.dart';
-import 'package:attendace_online_polije/features/home/widgets/item_schedule.dart';
-
 import '../export/index.dart';
 
 class HomeScreen extends StatelessWidget {
