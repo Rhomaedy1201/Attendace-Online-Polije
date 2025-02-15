@@ -30,4 +30,15 @@ class AuthRepository {
       throw Exception('$e');
     }
   }
+
+  Future<void> removePrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('nim');
+    await prefs.remove('token');
+    print("Berhasil di Hapus");
+  }
+
+  Future<void> logout() async {
+
+  }
 }

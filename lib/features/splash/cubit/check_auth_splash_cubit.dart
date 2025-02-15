@@ -13,9 +13,8 @@ class CheckAuthSplashCubit extends Cubit<CheckAuthSplashState> {
 
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
-    var isLoggedIn = token!.isNotEmpty ? true : false ;
 
-    if (isLoggedIn) {
+    if (token != null) {
       emit(AuthAuthenticated());
     } else {
       emit(AuthUnauthenticated());

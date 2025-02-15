@@ -1,141 +1,203 @@
-// // ignore_for_file: library_private_types_in_public_api
-
-// import 'package:flutter/material.dart';
-// import 'package:camera/camera.dart';
-// import 'package:flutter/services.dart';
-// import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
-
-// class AttendanceScreen extends StatefulWidget {
-//   const AttendanceScreen({super.key});
-
-//   @override
-//   _AttendanceScreenState createState() => _AttendanceScreenState();
-// }
-
-// class _AttendanceScreenState extends State<AttendanceScreen> {
-//   late CameraController _cameraController;
-//   late FaceDetector _faceDetector;
-//   bool _isFaceDetected = false;
-//   late List<CameraDescription> _cameras;
-//   late CameraDescription _camera;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _initializeCamera();
-//     _faceDetector = FaceDetector(options: FaceDetectorOptions());
-//   }
-
-//   Future<void> _initializeCamera() async {
-//     _cameras = await availableCameras();
-//     _camera = _cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front);
-//     _cameraController = CameraController(
-//       _camera,
-//       ResolutionPreset.low,  // Gunakan resolusi lebih rendah untuk kecepatan
-//       enableAudio: false,
-//       imageFormatGroup: ImageFormatGroup.nv21, // Format gambar untuk Android
-//     );
-//     await _cameraController.initialize();
-//     _cameraController.lockCaptureOrientation(DeviceOrientation.landscapeLeft); 
-//     setState(() {});
-
-//     _cameraController.startImageStream((CameraImage image) {
-//       _processCameraImage(image);
-//     });
-//   }
-
-//   Future<void> _processCameraImage(CameraImage image) async {
-//     // Tambahkan Future.delayed agar pemrosesan tidak menghambat UI
-//     await Future.delayed(Duration(milliseconds: 100));
-
-//     final inputImage = _inputImageFromCameraImage(image);
-
-//     if (inputImage != null) {
-//       final faces = await _faceDetector.processImage(inputImage);
-//       setState(() {
-//         _isFaceDetected = faces.isNotEmpty;
-//       });
-//       print(_isFaceDetected);
-//     }
-//   }
-
-//   InputImage? _inputImageFromCameraImage(CameraImage image) {
-//     final camera = _cameraController.description;
-//     final sensorOrientation = camera.sensorOrientation;
-//     InputImageRotation rotation;
-
-//     rotation = InputImageRotationValue.fromRawValue(sensorOrientation) ??
-//           InputImageRotation.rotation0deg;
-
-//     final format = InputImageFormatValue.fromRawValue(image.format.raw);
-//     if (format == null || image.planes.length != 1) return null;
-//     final plane = image.planes.first;
-//     print(_isFaceDetected);
-
-//     return InputImage.fromBytes(
-//       bytes: plane.bytes,
-//       metadata: InputImageMetadata(
-//         size: Size(image.width.toDouble(), image.height.toDouble()),
-//         rotation: rotation,  // Sekarang pasti ada nilai
-//         format: format,
-//         bytesPerRow: plane.bytesPerRow,
-//       ),
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     _cameraController.stopImageStream();  // Hentikan aliran gambar
-//     _cameraController.dispose();  // Lepaskan sumber daya kamera
-//     _faceDetector.close();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Face Detection'),
-//       ),
-//       body: Center(
-//         child: _cameraController.value.isInitialized
-//             ? Stack(
-//                 children: [
-//                   SizedBox(
-//                     height: 600,
-//                     child: CameraPreview(_cameraController)),
-//                   Positioned(
-//                     bottom: 30,
-//                     left: 50,
-//                     child: Text(
-//                       _isFaceDetected.toString(),
-//                       //  ? 'Wajah Terdeteksi' : 'Tidak ada wajah',
-//                       style: TextStyle(
-//                         fontSize: 24,
-//                         color: _isFaceDetected ? Colors.green : Colors.red,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               )
-//             : CircularProgressIndicator(),
-//       ),
-//     );
-//   }
-// }
-
+import 'dart:math' as math;
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import 'package:lottie/lottie.dart';
 
-class AttendanceScreen extends StatelessWidget {
+class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CAMERA"),
+  State<AttendanceScreen> createState() => _AttendanceScreenState();
+}
+
+class _AttendanceScreenState extends State<AttendanceScreen> {
+  CameraController? _cameraController;
+  late FaceDetector _faceDetector;
+  bool _isFaceDetected = false;
+  String _faceStatusText = "Mendeteksi wajah...";
+  Color _faceStatusColor = Colors.orange;
+  bool _isProcessing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeCamera();
+    _faceDetector = FaceDetector(
+      options: FaceDetectorOptions(
+        enableContours: true,
+        enableClassification: true,
       ),
     );
+  }
+
+  /// **Inisialisasi Kamera**
+  Future<void> _initializeCamera() async {
+    final cameras = await availableCameras();
+    _cameraController = CameraController(
+      cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front),
+      ResolutionPreset.veryHigh,
+    );
+    await _cameraController!.initialize();
+    _cameraController!.lockCaptureOrientation(DeviceOrientation.landscapeLeft);
+    _cameraController!.startImageStream((CameraImage image) {
+      if (!mounted) return;
+      _processImage(image);
+    });
+  }
+
+  /// **Proses Gambar & Deteksi Wajah**
+  Future<void> _processImage(CameraImage image) async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
+    try {
+      final WriteBuffer allBytes = WriteBuffer();
+      for (Plane plane in image.planes) {
+        allBytes.putUint8List(plane.bytes);
+      }
+      final bytes = allBytes.done().buffer.asUint8List();
+
+      final metadata = InputImageMetadata(
+        size: Size(image.width.toDouble(), image.height.toDouble()),
+        rotation: InputImageRotation.rotation270deg, // Sesuaikan dengan orientasi kamera
+        format: InputImageFormat.nv21,
+        bytesPerRow: image.planes[0].bytesPerRow,
+      );
+
+      final inputImage = InputImage.fromBytes(bytes: bytes, metadata: metadata);
+      final faces = await _faceDetector.processImage(inputImage);
+
+
+      setState(() {
+        if (faces.isNotEmpty) {
+          _isFaceDetected = true;
+          _faceStatusText = "Wajah Terdeteksi";
+          _faceStatusColor = Colors.green;
+        } else {
+          _isFaceDetected = false;
+          _faceStatusText = "Wajah Tidak Terdeteksi";
+          _faceStatusColor = Colors.red;
+        }
+      });
+    } catch (e) {
+      print("Error mendeteksi wajah: $e");
+    }
+
+    _isProcessing = false;
+  }
+
+  @override
+  void dispose() {
+    _cameraController?.dispose();
+    _faceDetector.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      appBar: AppBar(title: Text("FOTO SELFI")),
+      body: Stack(
+        children: [
+          // Kamera
+          SizedBox(
+            height: size.height * 0.68,
+            width: size.width,
+            child: _cameraController == null || !_cameraController!.value.isInitialized
+                ? Center(child: CircularProgressIndicator())
+                : Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.rotationY(math.pi), // Mirror untuk kamera depan
+                    child: CameraPreview(_cameraController!),
+                  ),
+          ),
+
+          // Animasi Lottie (Face Scan)
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
+            child: Lottie.asset("assets/lottie/face_scan.json", fit: BoxFit.cover),
+          ),
+
+          // Indikator & Tombol
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: size.width,
+              height: 250,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(28),
+                  topRight: Radius.circular(28),
+                ),
+              ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 30),
+                  Text(
+                    "Pastikan Anda berada di tempat terang, agar wajah terlihat jelas.",
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Status Deteksi Wajah
+                  Text(
+                    _faceStatusText,
+                    style: TextStyle(color: _faceStatusColor, fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Tombol Kamera (Aktif Jika Wajah Terdeteksi)
+                  ClipOval(
+                    child: Material(
+                      color: _isFaceDetected ? Colors.pinkAccent : Colors.grey, // Jika wajah terdeteksi, warna aktif
+                      child: InkWell(
+                        splashColor: Colors.pink,
+                        onTap: _isFaceDetected ? _captureImage : null, // Tombol hanya aktif jika wajah terdeteksi
+                        child: const SizedBox(
+                          width: 56,
+                          height: 56,
+                          child: Icon(
+                            Icons.camera_enhance_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// **Fungsi untuk Menangkap Gambar**
+  Future<void> _captureImage() async {
+    if (_cameraController != null && _cameraController!.value.isInitialized) {
+      try {
+        _cameraController!.setFlashMode(FlashMode.off);
+        final XFile image = await _cameraController!.takePicture();
+        print("Gambar diambil: ${image.path}");
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Gambar berhasil diambil!", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.green,
+          shape: StadiumBorder(),
+          behavior: SnackBarBehavior.floating,
+        ));
+
+      } catch (e) {
+        print("Gagal mengambil gambar: $e");
+      }
+    }
   }
 }

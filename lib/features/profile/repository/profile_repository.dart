@@ -10,6 +10,8 @@ class ProfileRepository {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
+    print(token);
+
     final response = await http.get(
       Uri.parse(ApiConstants.userEndpoint),
       headers: {
@@ -19,7 +21,6 @@ class ProfileRepository {
     );
     final jsonData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      print(jsonData);
       return ProfileM.fromJson(jsonData);
     } else {
       throw Exception('Failed to load Profile ${response.statusCode}');
