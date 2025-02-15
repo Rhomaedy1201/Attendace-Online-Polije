@@ -86,7 +86,7 @@ class LoginScreen extends StatelessWidget {
                       listener: (context, state) {
                         if (state is AuthSuccess) {
                           MySnacbar.snackbarSuccess("Berhasil Login", context);
-                          Navigator.pushReplacementNamed(context, AppRoutes.home);
+                          Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
                         } else if(state is AuthError) {
                           MySnacbar.snackbarError(state.msgErr, context);
                         }

@@ -7,6 +7,8 @@ class HomeJadwalRepository {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
+    debugPrint(token);
+
     final response = await http.get(
       Uri.parse(ApiConstants.jadwalTodayEndpoint),
       headers: {
