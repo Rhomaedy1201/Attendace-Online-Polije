@@ -27,6 +27,7 @@ class AppRoutes {
           providers: [
             BlocProvider(create: (context) => JadwalTodayCubit(HomeJadwalRepository())..getJadwalToday()),
             BlocProvider(create: (context) => ProfileCubit(ProfileRepository())..getProfile()),
+            BlocProvider(create: (context) => AuthCubit(AuthRepository())),
           ], 
           child: MyNavigationBar()
         ));

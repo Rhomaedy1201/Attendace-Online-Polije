@@ -10,8 +10,6 @@ class ProfileRepository {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    print(token);
-
     final response = await http.get(
       Uri.parse(ApiConstants.userEndpoint),
       headers: {

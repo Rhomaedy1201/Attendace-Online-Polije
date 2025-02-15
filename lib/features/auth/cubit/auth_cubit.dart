@@ -20,4 +20,14 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthError(msgErr: "error occurred: $e"));
     }
   }
+
+  void logout() async {
+    emit(AuthLoading());
+    try {
+      final response = await authRepository.logout();
+      emit(AuthSuccess(msg: response['message']));
+    } catch (e) {
+      emit(AuthError(msgErr: "error occurred: $e"));
+    }
+  }
 }

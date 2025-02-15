@@ -180,7 +180,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  /// **Fungsi untuk Menangkap Gambar**
+  /// Fungsi untuk Menangkap Gambar
   Future<void> _captureImage() async {
     if (_cameraController != null && _cameraController!.value.isInitialized) {
       try {

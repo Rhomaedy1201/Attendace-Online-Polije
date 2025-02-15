@@ -35,10 +35,30 @@ class AuthRepository {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('nim');
     await prefs.remove('token');
-    print("Berhasil di Hapus");
   }
 
-  Future<void> logout() async {
+  Future<Map<dynamic, dynamic>> logout() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token');
 
+      final response = await http.post(
+        Uri.parse(ApiConstants.logoutEndpoint),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        }
+      );
+      
+      final jsonData = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        removePrefs();
+        return Map<dynamic, dynamic>.from(jsonData);
+      } else {
+        throw Exception('Error ${jsonData['message']} ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('$e');
+    }
   }
 }
