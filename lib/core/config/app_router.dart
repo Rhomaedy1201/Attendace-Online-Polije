@@ -1,3 +1,5 @@
+import 'package:attendace_online_polije/features/attendance/screens/detail.dart';
+
 import './export/index.dart';
 
 class AppRoutes {
@@ -6,6 +8,7 @@ class AppRoutes {
   static const String myNavigationBar = '/my_navigation_bar';
   static const String home = '/home';
   static const String attendance = '/attendance';
+  static const String detailAttendance = '/detail_attendance';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -35,6 +38,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => HomeScreen());
       case attendance:
         return MaterialPageRoute(builder: (_) => AttendanceScreen());
+      case detailAttendance:
+        return MaterialPageRoute(builder: (_) => DetailAttendanceScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

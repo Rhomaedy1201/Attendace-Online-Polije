@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,7 +106,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         children: [
           // Kamera
           SizedBox(
-            height: size.height * 0.68,
+            height: size.height * 0.8,
             width: size.width,
             child: _cameraController == null || !_cameraController!.value.isInitialized
                 ? Center(child: CircularProgressIndicator())
@@ -159,7 +160,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       color: _isFaceDetected ? Colors.pinkAccent : Colors.grey, // Jika wajah terdeteksi, warna aktif
                       child: InkWell(
                         splashColor: Colors.pink,
-                        onTap: _isFaceDetected ? _captureImage : null, // Tombol hanya aktif jika wajah terdeteksi
+                        // onTap: _isFaceDetected ? _captureImage : null, // Tombol hanya aktif jika wajah terdeteksi
+                        onTap: _isFaceDetected ? () {
+                          Navigator.pushReplacementNamed(context, AppRoutes.detailAttendance);
+                        } : null, // Tombol hanya aktif jika wajah terdeteksi
                         child: const SizedBox(
                           width: 56,
                           height: 56,
