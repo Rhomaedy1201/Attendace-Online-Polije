@@ -39,7 +39,7 @@ class AppRoutes {
       case attendance:
         return MaterialPageRoute(builder: (_) => AttendanceScreen());
       case detailAttendance:
-        return MaterialPageRoute(builder: (_) => DetailAttendanceScreen());
+        return MaterialPageRoute(settings: settings, builder: (_) => DetailAttendanceScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

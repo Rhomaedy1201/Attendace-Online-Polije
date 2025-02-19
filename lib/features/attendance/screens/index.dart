@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math' as math;
 import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:camera/camera.dart';
@@ -162,8 +163,8 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                         splashColor: Colors.pink,
                         // onTap: _isFaceDetected ? _captureImage : null, // Tombol hanya aktif jika wajah terdeteksi
                         onTap: _isFaceDetected ? () {
-                          Navigator.pushReplacementNamed(context, AppRoutes.detailAttendance);
-                        } : null, // Tombol hanya aktif jika wajah terdeteksi
+                          _captureImage(context);
+                        } : null, 
                         child: const SizedBox(
                           width: 56,
                           height: 56,
@@ -185,12 +186,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   /// Fungsi untuk Menangkap Gambar
-  Future<void> _captureImage() async {
+  Future<void> _captureImage(BuildContext context) async {
     if (_cameraController != null && _cameraController!.value.isInitialized) {
       try {
         _cameraController!.setFlashMode(FlashMode.off);
         final XFile image = await _cameraController!.takePicture();
-        print("Gambar diambil: ${image.path}");
+        log("IMAGE IMAGE : $image");
+        log("Gambar diambil: ${image.path}");
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text("Gambar berhasil diambil!", style: TextStyle(color: Colors.white)),
@@ -198,6 +200,18 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           shape: StadiumBorder(),
           behavior: SnackBarBehavior.floating,
         ));
+
+        Navigator.pushReplacementNamed(
+          context, 
+          AppRoutes.detailAttendance,
+          arguments: image.path,
+        );
+
+        if (image.path.isNotEmpty) {
+          log("✅ Mengirim ke Detail dengan path: ${image.path}");
+        } else {
+          log("🚨 image.path kosong! Navigasi dibatalkan.");
+        }
 
       } catch (e) {
         print("Gagal mengambil gambar: $e");

@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:attendace_online_polije/core/widgets/button.dart';
 import 'package:attendace_online_polije/features/attendance/widgets/items.dart';
@@ -10,6 +13,16 @@ class DetailAttendanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final String? imagePath = ModalRoute.of(context)?.settings.arguments as String?;
+    final args = ModalRoute.of(context)?.settings.arguments;
+    log("📌 Arguments diterima di Detail: $args");
+
+    if (imagePath == null || imagePath.isEmpty) {
+      return Scaffold(
+        body: Center(child: Text("Tidak ada gambar yang diterima")),
+      );
+    }
+
     return Scaffold(
       backgroundColor: ColorConstants.backgroundC,
       appBar: AppBar(
@@ -30,13 +43,13 @@ class DetailAttendanceScreen extends StatelessWidget {
             Gap(Y: 30),
             Center(
               child: Container(
-                width: size.width * 0.5,
-                height: size.height * 0.4,
+                width: size.width * 0.4,
+                height: size.height * 0.3,
                 decoration: BoxDecoration(
                   color: ColorConstants.emberLightC,
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: AssetImage("assets/images/user.jpeg"),
+                    image: FileImage(File(imagePath)),
                     fit: BoxFit.cover,
                   )
                 ),
@@ -57,7 +70,6 @@ class DetailAttendanceScreen extends StatelessWidget {
               child: CustomButton(
                 isBtnIcon: false,
                 title: "Presensi",
-                // icon: Icons.login_outlined,
                 bgColor: ColorConstants.primaryC,
                 fontSize: 15,
                 fontWeight: FontWeight.w700,
