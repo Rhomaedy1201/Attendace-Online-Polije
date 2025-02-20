@@ -1,4 +1,4 @@
-import 'package:attendace_online_polije/features/attendance/screens/detail.dart';
+import 'package:attendace_online_polije/features/home/repository/jadwal_now_repository.dart';
 
 import './export/index.dart';
 
@@ -29,6 +29,7 @@ class AppRoutes {
           providers: [
             BlocProvider(create: (context) => NavigatorCubit()),
             BlocProvider(create: (context) => JadwalTodayCubit(HomeJadwalRepository())..getJadwalToday()),
+            BlocProvider(create: (context) => JadwalNowCubit(JadwalNowRepository())..getJadwalNow()),
             BlocProvider(create: (context) => ProfileCubit(ProfileRepository())..getProfile()),
             BlocProvider(create: (context) => AuthCubit(AuthRepository())),
           ], 
