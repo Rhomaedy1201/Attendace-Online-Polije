@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import '../export/index.dart';
 
@@ -7,7 +8,7 @@ class JadwalNowRepository {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    debugPrint(token);
+    log("message");
 
     final response = await http.get(
       Uri.parse(ApiConstants.jadwalNowEndpoint),
@@ -18,6 +19,7 @@ class JadwalNowRepository {
     );
 
     final jsonData = jsonDecode(response.body);
+    log(response.body);
     if (response.statusCode == 200) {
       return Map<dynamic, dynamic>.from(jsonData);
     } else {
