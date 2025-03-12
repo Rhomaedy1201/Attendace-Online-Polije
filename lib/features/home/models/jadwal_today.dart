@@ -32,7 +32,7 @@ class Datum {
     int id;
     String hari;
     String jamMasuk;
-    String jamToleransiMasuk;
+    String? jamToleransiMasuk;
     String jamSelesai;
     dynamic jamToleransiSelesai;
     String durasi;

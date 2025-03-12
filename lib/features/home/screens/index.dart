@@ -1,3 +1,6 @@
+import 'package:attendace_online_polije/features/home/cubit/jadwal_now_cubit.dart';
+import 'package:attendace_online_polije/features/home/repository/home_jadwal_repository.dart';
+
 import '../export/index.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,10 +28,22 @@ class HomeScreen extends StatelessWidget {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  child: MyText(
-                      title: "Jadwal Hari Ini",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MyText(
+                          title: "Jadwal Hari Ini",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700),
+                      InkWell(
+                        onTap: () {
+                          context.read<JadwalTodayCubit>().getJadwalToday();
+                          context.read<JadwalNowCubit>().getJadwalNow();
+                        },
+                        child: Icon(Icons.refresh, color: ColorConstants.primaryDarkC, size: 35),
+                      ),
+                    ],
+                  ),
                 ),
                 ItemSchedule(screenWidth: screenWidth),
               ],

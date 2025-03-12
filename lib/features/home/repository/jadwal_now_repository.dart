@@ -7,9 +7,6 @@ class JadwalNowRepository {
   Future<Map<dynamic, dynamic>> getJadwalNow() async{
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
-
-    log("message");
-
     final response = await http.get(
       Uri.parse(ApiConstants.jadwalNowEndpoint),
       headers: {
