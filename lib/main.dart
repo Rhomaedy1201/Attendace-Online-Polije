@@ -1,6 +1,5 @@
 import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:attendace_online_polije/core/config/export/index.dart';
-import 'package:attendace_online_polije/core/constants/color_constants.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -11,6 +10,7 @@ Future<void> main() async {
     runApp(MyApp());
   });
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
