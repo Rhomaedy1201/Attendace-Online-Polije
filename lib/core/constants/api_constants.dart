@@ -10,6 +10,5 @@ class ApiConstants {
   static String jadwalNowEndpoint = '$baseUrl/jadwal-now';
   static String userEndpoint = '$baseUrl/profile';
   static String attendanceEndpoint = '$baseUrl/absen-masuk';
-//   static  String registerEndpoint = '/auth/register';
-//   static  String attendanceEndpoint = '/attendance';
+  static String historyEndpoint = '$baseUrl/history';
 }

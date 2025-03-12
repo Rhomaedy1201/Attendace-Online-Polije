@@ -4,7 +4,18 @@ import '../export/index.dart';
 
 class ItemCard extends StatelessWidget {
   double screenWidth, screenHeight;
-  ItemCard({super.key, required this.screenWidth, required this.screenHeight});
+  int no;
+  String tgl, matkul, waktu, status;
+  ItemCard({
+    super.key, 
+    required this.screenWidth, 
+    required this.screenHeight,
+    required this.no,
+    required this.tgl,
+    required this.matkul,
+    required this.waktu,
+    required this.status,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +62,7 @@ class ItemCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(title: "Matkul :", color: ColorConstants.grayC_600, fontSize: 11,),
-                        MyText(title: "Matematika", color: ColorConstants.textC, fontWeight: FontWeight.w700,)
+                        MyText(title: matkul, color: ColorConstants.textC, fontWeight: FontWeight.w700,)
                       ],
                     ),
                   ),
@@ -71,7 +82,7 @@ class ItemCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MyText(title: "Waktu Absen :", color: ColorConstants.grayC_600, fontSize: 11,),
-                        MyText(title: "07:21", color: ColorConstants.textC, fontWeight: FontWeight.w700,)
+                        MyText(title: waktu, color: ColorConstants.textC, fontWeight: FontWeight.w700,)
                       ],
                     ),
                   ),
@@ -91,7 +102,7 @@ class ItemCard extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: MyText(title: "Telat Absen", color: ColorConstants.whiteC, fontWeight: FontWeight.w600, fontSize: 11),
+                  child: MyText(title: status, color: ColorConstants.whiteC, fontWeight: FontWeight.w600, fontSize: 11),
                 )
               ),
             ],
@@ -115,7 +126,7 @@ class ItemCard extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
-            child: MyText(title: "1", color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
+            child: MyText(title: no.toString(), color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
           ),
         ),
         Container(
@@ -128,7 +139,7 @@ class ItemCard extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 3),
-            child: MyText(title: "20 Januari 2025", color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
+            child: MyText(title: tgl, color: Colors.white, fontSize: 13, fontWeight: FontWeight.w700),
           ),
         ),
       ],
