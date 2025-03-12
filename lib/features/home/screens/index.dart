@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                     screenHeight: screenHeight, screenWidth: screenWidth),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -39,11 +39,28 @@ class HomeScreen extends StatelessWidget {
                           context.read<JadwalTodayCubit>().getJadwalToday();
                           context.read<JadwalNowCubit>().getJadwalNow();
                         },
-                        child: Icon(Icons.refresh, color: ColorConstants.primaryDarkC, size: 35),
+                        child: Icon(Icons.refresh, color: ColorConstants.primaryDarkC, size: 30),
                       ),
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      MyText(
+                        title: "Waktu",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
+                      Gap(X: 38),
+                      MyText(
+                        title: "Kelas",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
+                    ],
+                  ),
+                ),
+                Gap(Y: 10),
                 ItemSchedule(screenWidth: screenWidth),
               ],
             ),

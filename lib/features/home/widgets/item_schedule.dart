@@ -20,23 +20,11 @@ class ItemSchedule extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        MyText(
-                            title: "Waktu",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
-                        Gap(X: 38),
-                        MyText(
-                            title: "Kelas",
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
-                      ],
-                    ),
                     ListView.builder(
                       itemCount: state.jadwal.data.length,
                       shrinkWrap: true,
                       padding: EdgeInsets.all(0),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         var data = state.jadwal.data;
                         return Row(
@@ -152,7 +140,8 @@ class ItemSchedule extends StatelessWidget {
                           ],
                         );
                       },
-                    )
+                    ),
+                    Gap(Y: 50)
                   ],
                 ),
               ),
