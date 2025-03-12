@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'dart:math' as math;
 import 'package:attendace_online_polije/core/config/app_router.dart';
 import 'package:camera/camera.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:lottie/lottie.dart';
+import 'package:image/image.dart' as img;
 
 class AttendanceScreen extends StatefulWidget {
   const AttendanceScreen({super.key});
@@ -39,7 +41,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     final cameras = await availableCameras();
     _cameraController = CameraController(
       cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.front),
-      ResolutionPreset.veryHigh,
+      ResolutionPreset.ultraHigh,
     );
     await _cameraController!.initialize();
     _cameraController!.lockCaptureOrientation(DeviceOrientation.landscapeLeft);
@@ -187,35 +189,47 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
 
   /// Fungsi untuk Menangkap Gambar
   Future<void> _captureImage(BuildContext context) async {
-    if (_cameraController != null && _cameraController!.value.isInitialized) {
-      try {
-        _cameraController!.setFlashMode(FlashMode.off);
-        final XFile image = await _cameraController!.takePicture();
-        log("IMAGE IMAGE : $image");
-        log("Gambar diambil: ${image.path}");
+  if (_cameraController != null && _cameraController!.value.isInitialized) {
+    try {
+      _cameraController!.setFlashMode(FlashMode.off);
+      final XFile imageFile = await _cameraController!.takePicture();
+      File originalFile = File(imageFile.path);
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Gambar berhasil diambil!", style: TextStyle(color: Colors.white)),
-          backgroundColor: Colors.green,
-          shape: StadiumBorder(),
-          behavior: SnackBarBehavior.floating,
-        ));
+      log("IMAGE IMAGE : ${imageFile.path}");
+      log("Gambar diambil: ${imageFile.path}");
 
-        Navigator.pushReplacementNamed(
-          context, 
-          AppRoutes.detailAttendance,
-          arguments: image.path,
-        );
-
-        if (image.path.isNotEmpty) {
-          log("✅ Mengirim ke Detail dengan path: ${image.path}");
-        } else {
-          log("🚨 image.path kosong! Navigasi dibatalkan.");
-        }
-
-      } catch (e) {
-        print("Gagal mengambil gambar: $e");
+      // Baca gambar
+      img.Image? originalImage = img.decodeImage(await originalFile.readAsBytes());
+      if (originalImage == null) {
+        log("❌ Gagal membaca gambar.");
+        return;
       }
+      // **Putar gambar ke portrait jika diperlukan**
+      img.Image rotatedImage = img.copyRotate(originalImage, angle: 270);
+
+      // Simpan kembali gambar yang sudah diputar
+      File rotatedFile = File(imageFile.path)
+        ..writeAsBytesSync(img.encodeJpg(rotatedImage));
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Gambar berhasil diambil!", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.green,
+        shape: StadiumBorder(),
+        behavior: SnackBarBehavior.floating,
+      ));
+
+      // Navigasi ke halaman berikutnya dengan gambar yang sudah dirotasi
+      Navigator.pushReplacementNamed(
+        context, 
+        AppRoutes.detailAttendance,
+        arguments: rotatedFile.path,
+      );
+
+      log("✅ Mengirim ke Detail dengan path: ${rotatedFile.path}");
+
+    } catch (e) {
+      print("Gagal mengambil gambar: $e");
     }
   }
+}
 }

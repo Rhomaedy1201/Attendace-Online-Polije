@@ -42,6 +42,7 @@ dependencies:
   lottie: ^3.3.1
   shared_preferences: ^2.5.2
   shimmer: ^3.0.0
+  image: ^4.5.3
 
 dev_dependencies:
   flutter_lints: ^5.0.0
