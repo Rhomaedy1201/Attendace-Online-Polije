@@ -1,10 +1,3 @@
-import 'package:attendace_online_polije/core/config/app_router.dart';
-import 'package:attendace_online_polije/core/utils/my_alert.dart';
-import 'package:attendace_online_polije/core/utils/my_snacbar.dart';
-import 'package:attendace_online_polije/features/auth/cubit/auth_cubit.dart';
-import 'package:attendace_online_polije/features/profile/cubit/profile_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../export/index.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -102,29 +95,29 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Items(
-                      icon: FluentIcons.person_32_filled,
-                      title: "Informasi Mahasiswa",
-                      onClick: () {
-                        debugPrint("Informasi mhs");
-                      },
-                      addArrowRight: true,
-                    ),
-                    Gap(Y: 20),
-                    Items(
-                      icon: FluentIcons.lock_closed_16_filled,
-                      title: "Ubah Password",
-                      onClick: () {},
-                      addArrowRight: true,
-                    ),
-                    Gap(Y: 20),
-                    Items(
-                      icon: FluentIcons.settings_16_filled,
-                      title: "Settings",
-                      onClick: () {},
-                      addArrowRight: true,
-                    ),
-                    Gap(Y: 20),
+                    // Items(
+                    //   icon: FluentIcons.person_32_filled,
+                    //   title: "Informasi Mahasiswa",
+                    //   onClick: () {
+                    //     debugPrint("Informasi mhs");
+                    //   },
+                    //   addArrowRight: true,
+                    // ),
+                    // Gap(Y: 20),
+                    // Items(
+                    //   icon: FluentIcons.lock_closed_16_filled,
+                    //   title: "Ubah Password",
+                    //   onClick: () {},
+                    //   addArrowRight: true,
+                    // ),
+                    // Gap(Y: 20),
+                    // Items(
+                    //   icon: FluentIcons.settings_16_filled,
+                    //   title: "Settings",
+                    //   onClick: () {},
+                    //   addArrowRight: true,
+                    // ),
+                    // Gap(Y: 20),
                     BlocListener<AuthCubit, AuthState>(
                       listener: (context, state) {
                         if (state is AuthSuccess) {
