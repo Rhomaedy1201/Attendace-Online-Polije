@@ -1,4 +1,6 @@
+import 'package:attendace_online_polije/features/attendance/cubit/attendance_cubit.dart';
 import 'package:attendace_online_polije/features/attendance/cubit/face_prediction_cubit.dart';
+import 'package:attendace_online_polije/features/attendance/repository/attendance_repository.dart';
 import 'package:attendace_online_polije/features/attendance/repository/face_prediction.dart';
 import 'package:attendace_online_polije/features/home/repository/jadwal_now_repository.dart';
 
@@ -47,6 +49,7 @@ class AppRoutes {
         return MaterialPageRoute(settings: settings, builder: (_) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => FacePredictionCubit(FacePredictionRepository())),
+            BlocProvider(create: (context) => AttendanceCubit(AttendanceRepository())),
           ], 
           child: DetailAttendanceScreen()
         ));

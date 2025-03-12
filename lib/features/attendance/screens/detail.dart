@@ -1,14 +1,5 @@
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:attendace_online_polije/core/config/app_router.dart';
-import 'package:attendace_online_polije/core/widgets/button.dart';
-import 'package:attendace_online_polije/features/attendance/cubit/face_prediction_cubit.dart';
-import 'package:attendace_online_polije/features/attendance/widgets/items.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
-
 import '../export/index.dart';
+import 'dart:developer';
 
 class DetailAttendanceScreen extends StatelessWidget {
   const DetailAttendanceScreen({super.key});
@@ -76,10 +67,15 @@ class DetailAttendanceScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox(
-                            width: size.width * 0.7,
-                            child: Lottie.asset("assets/lottie/process_face.json", fit: BoxFit.cover)
-                          ),
-                          MyText(title: "PROSES DETEKSI WAJAH...", fontSize: 20, fontWeight: FontWeight.w600, color: ColorConstants.primaryC)
+                              width: size.width * 0.7,
+                              child: Lottie.asset(
+                                  "assets/lottie/process_face.json",
+                                  fit: BoxFit.cover)),
+                          MyText(
+                              title: "PROSES DETEKSI WAJAH...",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: ColorConstants.primaryC)
                         ],
                       ),
                     ),
@@ -90,27 +86,58 @@ class DetailAttendanceScreen extends StatelessWidget {
                     children: [
                       Gap(Y: 40),
                       ItemAttendance(
-                          size: size, title: "Kelas Asli", value: state.data["label_asli"] ?? "Kosong"),
+                          size: size,
+                          title: "Kelas Asli",
+                          value: state.data["label_asli"] ?? "Kosong"),
                       Gap(Y: 5),
                       ItemAttendance(
-                          size: size, title: "Kelas Prediksi", value: state.data["predicted_label"]),
-                      Gap(Y: 5),
-                      ItemAttendance(size: size, title: "Akurasi", value: "${state.data["akurasi"]}%"),
+                          size: size,
+                          title: "Kelas Prediksi",
+                          value: state.data["predicted_label"]),
                       Gap(Y: 5),
                       ItemAttendance(
-                          size: size, title: "Keterangan", value: state.data["label_asli"] != state.data["predicted_label"] ? "Prediksi Salah❌" : "Prediksi Benar✅"),
+                          size: size,
+                          title: "Akurasi",
+                          value: "${state.data["akurasi"]}%"),
+                      Gap(Y: 5),
+                      ItemAttendance(
+                          size: size,
+                          title: "Keterangan",
+                          value: state.data["label_asli"] !=
+                                  state.data["predicted_label"]
+                              ? "Prediksi Salah❌"
+                              : "Prediksi Benar✅"),
                       Gap(Y: 20),
-                      SizedBox(
-                        width: size.width,
-                        height: 45,
-                        child: CustomButton(
-                          isBtnIcon: false,
-                          title: "Presensi",
-                          bgColor: ColorConstants.primaryC,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700,
-                          textColor: Colors.white,
-                          onPressed: state.data["label_asli"] != state.data["predicted_label"] ? null : () {},
+                      BlocListener<AttendanceCubit, AttendanceState>(
+                        listener: (context, state) {
+                          if (state is AttendanceSuccess) {
+                            MySnacbar.snackbarSuccess(state.msg, context);
+                            Navigator.pushReplacementNamed(context, AppRoutes.myNavigationBar);
+                          }else if(state is AttendanceError) {
+                            MySnacbar.snackbarError(state.msgErr, context);
+                          }
+                        },
+                        child: SizedBox(
+                          width: size.width,
+                          height: 45,
+                          child: CustomButton(
+                            isBtnIcon: false,
+                            title: State is AttendanceLoading ? "Loading..." : "Presensi",
+                            bgColor: ColorConstants.primaryC,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            textColor: Colors.white,
+                            onPressed: state.data["label_asli"] !=
+                                    state.data["predicted_label"]
+                                ? null
+                                : () {
+                                  if (State is AttendanceLoading) {
+                                    
+                                  }else{
+                                    context.read<AttendanceCubit>().attendance();
+                                  }
+                                },
+                          ),
                         ),
                       ),
                       Gap(Y: 5),
@@ -135,7 +162,9 @@ class DetailAttendanceScreen extends StatelessWidget {
                 }
                 if (state is FacePredictionError) {
                   log(state.msgErr);
-                  return Center(child: Text("Error: ${state.msgErr}", style: TextStyle(color: Colors.red)));
+                  return Center(
+                      child: Text("Error: ${state.msgErr}",
+                          style: TextStyle(color: Colors.red)));
                 }
                 return const Center(child: Text("Menunggu hasil prediksi..."));
               },
