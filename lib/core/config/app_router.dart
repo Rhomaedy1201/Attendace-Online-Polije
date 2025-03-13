@@ -1,12 +1,3 @@
-import 'package:attendace_online_polije/features/attendance/cubit/attendance_cubit.dart';
-import 'package:attendace_online_polije/features/attendance/cubit/face_prediction_cubit.dart';
-import 'package:attendace_online_polije/features/attendance/repository/attendance_repository.dart';
-import 'package:attendace_online_polije/features/attendance/repository/face_prediction.dart';
-import 'package:attendace_online_polije/features/history/cubit/filter_visibilty_cubit.dart';
-import 'package:attendace_online_polije/features/history/cubit/history_cubit.dart';
-import 'package:attendace_online_polije/features/history/repository/history_repository.dart';
-import 'package:attendace_online_polije/features/home/repository/jadwal_now_repository.dart';
-
 import './export/index.dart';
 
 class AppRoutes {
@@ -40,6 +31,7 @@ class AppRoutes {
             BlocProvider(create: (context) => ProfileCubit(ProfileRepository())..getProfile()),
             BlocProvider(create: (context) => AuthCubit(AuthRepository())),
             BlocProvider(create: (context) => FilterVisibiltyCubit()),
+            BlocProvider(create: (context) => VisibilityDropdownCubit()),
             BlocProvider(create: (context) => HistoryCubit(HistoryRepository())..getHistory(DateTime.now())),
           ], 
           child: MyNavigationBar()
