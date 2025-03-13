@@ -1,3 +1,6 @@
+import 'package:attendace_online_polije/features/jadwal/cubit/jadwal_cubit.dart';
+import 'package:attendace_online_polije/features/jadwal/repository/jadwal_repository.dart';
+
 import './export/index.dart';
 
 class AppRoutes {
@@ -33,6 +36,7 @@ class AppRoutes {
             BlocProvider(create: (context) => FilterVisibiltyCubit()),
             BlocProvider(create: (context) => VisibilityDropdownCubit()),
             BlocProvider(create: (context) => HistoryCubit(HistoryRepository())..getHistory(DateTime.now())),
+            BlocProvider(create: (context) => JadwalCubit(JadwalRepository())..getJadwalAll()),
           ], 
           child: MyNavigationBar()
         ));
