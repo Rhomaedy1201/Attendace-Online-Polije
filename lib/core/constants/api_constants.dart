@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiConstants {
   static String? baseUrl = dotenv.env['HOST'];
+  static String? apiPredict = dotenv.env['HOST_API_PYTHON'];
   static String loginEndpoint = '$baseUrl/login-mahasiswa';
   static String logoutEndpoint = '$baseUrl/logout';
   static String jadwalEndpoint = '$baseUrl/jadwal';

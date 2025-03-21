@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:attendace_online_polije/core/constants/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +14,7 @@ class FacePredictionRepository {
 
       debugPrint("NIM : $nim");
 
-      var request = http.MultipartRequest("POST", Uri.parse("http://192.168.1.4:5000/predict"));
+      var request = http.MultipartRequest("POST", Uri.parse("${ApiConstants.apiPredict}/predict"));
       request.files.add(await http.MultipartFile.fromPath('file', imgFile.path));
       request.fields['nim_asli'] = nim!;
 
