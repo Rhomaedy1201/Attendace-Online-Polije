@@ -47,7 +47,7 @@ class AttendanceCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MyText(
-                              title: "12 Jan 2025",
+                              title: "24 Maret 2025",
                               addIcon: true,
                               sizeIcon: 20,
                               icon: FluentIcons.calendar_28_regular,
@@ -106,7 +106,7 @@ class AttendanceCard extends StatelessWidget {
                           textColor: ColorConstants.whiteC,
                           fontWeight: FontWeight.w700,
                           icon: Icons.center_focus_weak_outlined,
-                          onPressed: () {
+                          onPressed: data['absensi'] != null ? null : () {
                             Navigator.pushNamed(context, AppRoutes.attendance);
                           },
                         ),

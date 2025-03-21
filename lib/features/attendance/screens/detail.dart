@@ -95,11 +95,11 @@ class DetailAttendanceScreen extends StatelessWidget {
                           title: "Kelas Prediksi",
                           value: state.data["predicted_label"]),
                       Gap(Y: 5),
-                      ItemAttendance(
-                          size: size,
-                          title: "Akurasi",
-                          value: "${state.data["akurasi"]}%"),
-                      Gap(Y: 5),
+                      // ItemAttendance(
+                      //     size: size,
+                      //     title: "Akurasi",
+                      //     value: "${state.data["akurasi"]}%"),
+                      // Gap(Y: 5),
                       ItemAttendance(
                           size: size,
                           title: "Keterangan",
