@@ -108,16 +108,25 @@ class ItemSchedule extends StatelessWidget {
                                           fontSize: 11,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.white),
-                                      MyText(
-                                          addIcon: true,
-                                          icon: FluentIcons
-                                              .share_screen_person_16_regular,
-                                          sizeIcon: 16,
-                                          colorIcon: Colors.white,
-                                          title: data[index].matkul.dosen.nama,
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white),
+                                      Row(
+                                        children: [
+                                          Icon(FluentIcons.share_screen_person_16_regular,size: 16, color: Colors.white),
+                                          SizedBox(
+                                            width: screenWidth * 0.6,
+                                            child: MyText(
+                                                addIcon: true,
+                                                icon: FluentIcons.share_screen_person_16_regular,
+                                                sizeIcon: 16,
+                                                colorIcon: Colors.white,
+                                                title: data[index].matkul.dosen.nama,
+                                                maxLine: 1,
+                                                textOverflow: TextOverflow.ellipsis,
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
                                       Gap(Y: 5),
                                       Row(
                                         children: [

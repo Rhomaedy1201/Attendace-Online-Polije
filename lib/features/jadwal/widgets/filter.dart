@@ -4,19 +4,7 @@ import '../export/index.dart';
 const List<Map> dropdownData = [
   {
     'id': 1,
-    'name': "2024 / 2025 Ganjil",
-  },
-  {
-    'id': 2,
     'name': "2024 / 2025 Genap",
-  },
-  {
-    'id': 3,
-    'name': "2025 / 2026 Ganjil",
-  },
-  {
-    'id': 4,
-    'name': "2025 / 2026 Genap",
   },
 ];
 

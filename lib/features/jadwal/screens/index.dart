@@ -2,25 +2,6 @@ import 'package:attendace_online_polije/features/jadwal/cubit/jadwal_cubit.dart'
 
 import '../export/index.dart';
 
-final List dataJadwal = [
-  {
-    'hari': "Senin",
-    'jam': "07:30 - 09:30",
-    'durasi': "2 jam",
-    'matkul': "Matematika Diskrit",
-    'ruang': "Lantai 4",
-    'dosen': "Bu Vany",
-  },
-  {
-    'hari': "Senin",
-    'jam': "09:30 - 11:30",
-    'durasi': "2 jam",
-    'matkul': "Basis Data",
-    'ruang': "Lantai 4",
-    'dosen': "Pak Aji",
-  }
-];
-
 class JadwalScreen extends StatelessWidget {
   const JadwalScreen({super.key});
 
