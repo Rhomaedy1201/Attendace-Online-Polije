@@ -14,6 +14,23 @@ class ItemSchedule extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         if (state is JadwalTodaySuccess) {
+          if(state.jadwal.data.isEmpty){
+            return Center(
+              child: Column(
+                children: [
+                  Gap(Y: 20),
+                  SizedBox(
+                      width: screenWidth * 0.45,
+                      child: Image.asset('assets/images/empty_data.png')),
+                  MyText(
+                      title: "Tidak ada jadwal kuliah\nhari ini.",
+                      fontSize: 15,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.w600)
+                ],
+              ),
+            );
+          }
           return Expanded(
             child: SingleChildScrollView(
               child: Padding(
